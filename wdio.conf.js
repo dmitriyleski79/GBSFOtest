@@ -66,7 +66,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'silent',
     //
     // Set specific log levels per logger
     // loggers:
@@ -90,7 +90,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    baseUrl: 'https://www.google.com/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -181,8 +181,9 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+     before: function (capabilities, specs) {
+         browser.maximizeWindow();
+     },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
@@ -260,8 +261,8 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+     //onComplete: function(exitCode, config, capabilities, results) {
+     //},
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session

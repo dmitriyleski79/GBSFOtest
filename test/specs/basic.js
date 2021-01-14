@@ -1,20 +1,21 @@
-const assert = require('assert').strict;
 const searchingResultsPage = require('../page/searching.results.page.js');
 const mainPage  = require('../page/main.page.js');
 const gbsfoPage = require('../page/gbsfo.page.js');
+const chai = require('chai');
+const axios = require('axios');
+const { expect } = require('chai');
 
 describe('home task', () => {
-    it('task1', () => {
 
-        browser.url('https://www.google.com/');
+    beforeEach (() => browser.url('/'))
+
+    it('task1', () => {
 
         mainPage.search('gbsfo');
 
         browser.newWindow(`https://${searchingResultsPage.findFullMatch('gbsfo')}`);
         
-        browser.waitUntil(() => {
-            return gbsfoPage.mainLog.isDisplayed()
-        }, 5000, 'title does not match');
+        gbsfoPage.waitForLogo()
     
         expect(browser).toHaveTitle('GBSFO');
         
@@ -23,15 +24,34 @@ describe('home task', () => {
     })
 
     it('task2', () => {
-        browser.url('https://www.google.com/');
 
         mainPage.search('test');
 
         searchingResultsPage.toolsButtonClick();
         searchingResultsPage.searchPeriodButton.click();
         searchingResultsPage.inAnHourChoiceButton();
-        searchingResultsPage.chekTimeOfResults();
-        browser.pause(1000);
+        const listOfTimeResults = searchingResultsPage.chekTimeOfResults();
+        chai.expect(listOfTimeResults.every((time) => time <= 60)).equal(true);
+
+    })
+
+    xit('task3', async () => {
+
+        async function sendPostAuth (url, expectedStatus, login, password) {
+            const {status} = await axios({
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    login: login,
+                    password: password
+                },
+                url: `${url}/api/auth/login`
+            })
+            chai.expect(status).equal(expectedStatus);
+        }
+
+        
+
 
     })
 })

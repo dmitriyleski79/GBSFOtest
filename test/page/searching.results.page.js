@@ -27,19 +27,13 @@ class SearchingResultsPage {
         return $$('span[class="f"]')
     }
 
-    chekTimeOfResults (dateOfResults) {
+    chekTimeOfResults () {
         
-        let a = this.dateOfResults.map(elem => elem.getText())
+        const datesTexts = this.dateOfResults.map(elem => elem.getText())
         
-        let b = a.map(elem => Number(elem.replace(/[^0-9\.-]+/g,"")))
+        const datesNumbers = datesTexts.map(elem => Number(elem.replace(/[^0-9\.-]+/g,"")))
         
-        b.forEach((elem, index) => {
-            if(elem > 60) {
-                console.log(`${index + 1} the search result does not match the conditions.`)
-            } else {
-                console.log(`${index + 1} the search result matches the conditions.`)
-            }
-        })
+            return datesNumbers
         
     }
 
