@@ -6,25 +6,32 @@ const gbsfoPage = require('../page/gbsfo.page.js');
 describe('home task', () => {
     it('task1', () => {
 
-        browser.url('https://www.google.com/')
-        mainPage.search('gbsfo')
+        browser.url('https://www.google.com/');
 
-        browser.newWindow(`https://${searchingResultsPage.findFullMatch('gbsfo')}`)
+        mainPage.search('gbsfo');
+
+        browser.newWindow(`https://${searchingResultsPage.findFullMatch('gbsfo')}`);
         
         browser.waitUntil(() => {
-            return browser.getTitle() == 'GBSFO'
-        }, 5000, 'title does not match')
-
-        assert.strictEqual(gbsfoPage.mainLog.isDisplayed(), true)
+            return gbsfoPage.mainLog.isDisplayed()
+        }, 5000, 'title does not match');
     
         expect(browser).toHaveTitle('GBSFO');
         
-        browser.closeWindow()
+        browser.switchWindow('Google')
         
-        browser.pause(3000)
     })
 
-    xit('task2', () => {
-        browser.url('google.com')
+    it('task2', () => {
+        browser.url('https://www.google.com/');
+
+        mainPage.search('test');
+
+        searchingResultsPage.toolsButtonClick();
+        searchingResultsPage.searchPeriodButton.click();
+        searchingResultsPage.inAnHourChoiceButton();
+        searchingResultsPage.chekTimeOfResults();
+        browser.pause(1000);
+
     })
 })
