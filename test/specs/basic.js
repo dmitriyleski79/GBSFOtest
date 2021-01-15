@@ -12,13 +12,9 @@ describe('home task', () => {
     it('task1', () => {
 
         mainPage.search('gbsfo');
-
         browser.newWindow(`https://${searchingResultsPage.findFullMatch('gbsfo')}`);
-        
         gbsfoPage.waitForLogo()
-    
         expect(browser).toHaveTitle('GBSFO');
-        
         browser.switchWindow('Google')
         
     })
@@ -26,7 +22,6 @@ describe('home task', () => {
     it('task2', () => {
 
         mainPage.search('test');
-
         searchingResultsPage.toolsButtonClick();
         searchingResultsPage.searchPeriodButton.click();
         searchingResultsPage.inAnHourChoiceButton();
